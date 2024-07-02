@@ -1,0 +1,50 @@
+.pokehome{
+    position: relative;
+    height: 87.6vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.pokehome__img{
+    display: flex;
+    max-width: 500px;
+    padding-bottom: 30px;
+}
+.pokehome__hi{
+    font-size: 50px;
+    color: #D93F3F;
+    text-align: center;
+    text-shadow:0 0 10px white;
+}
+.pokehome__text{
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    text-shadow:0 0 10px #D93F3F;
+
+}
+.pokehome__form{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+.pokehome__in{
+    min-width: 30%;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    box-shadow: 0 0 5px;
+    color: rgb(137, 137, 137);
+    font-size: larger;
+    box-shadow: 0 0 10px white;
+}
+.pokehome__btn{
+    padding: 10px 20px;
+    background-color: #D93F3F;
+    border: 2px solid #D93F3F;
+    color: white;
+    box-shadow: 0 0 10px white;
+}

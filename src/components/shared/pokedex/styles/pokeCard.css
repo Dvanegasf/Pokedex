@@ -1,0 +1,190 @@
+/* ---- Colors ---- */
+.normal {
+    background: linear-gradient(to bottom, gray, lightgray);
+    border: 5px solid gray;
+    color: gray; 
+}
+.fire {
+    background: linear-gradient(to bottom, red, orange);
+    border: 5px solid red;
+    color: red;
+}
+
+.water {
+    background: linear-gradient(to bottom, blue, lightblue);
+    border: 5px solid blue;
+    color: blue;
+}
+
+.grass {
+    background: linear-gradient(to bottom, green, lightgreen);
+    border: 5px solid green;
+    color: green;
+}
+.electric {
+    background: linear-gradient(to bottom, yellow, lightyellow);
+    border: 5px solid yellow;
+    color: rgb(208, 208, 1);
+}
+
+.ice {
+    background: linear-gradient(to bottom, lightblue, white);
+    border: 5px solid rgb(167, 208, 221);
+    color: rgb(167, 208, 221);
+}
+
+.fighting {
+    background: linear-gradient(to bottom, darkred, brown);
+    border: 5px solid darkred;
+    color: darkred;
+}
+
+.poison {
+    background: linear-gradient(to bottom, purple, rgb(219, 122, 219));
+    border: 5px solid purple;
+    color: purple;
+}
+
+.ground {
+    background: linear-gradient(to bottom, brown, tan);
+    border: 5px solid brown;
+    color: brown;
+}
+
+.flying {
+    background: linear-gradient(to bottom, skyblue, white);
+    border: 5px solid skyblue;
+    color: skyblue;
+}
+
+.psychic {
+    background: linear-gradient(to bottom, pink, purple);
+    border: 5px solid pink;
+    color: pink;
+}
+
+.bug {
+    background: linear-gradient(to bottom, rgb(1, 53, 1), rgb(0, 255, 0));
+    border: 5px solid darkgreen;
+    color: darkgreen;
+}
+
+.rock {
+    background: linear-gradient(to bottom, rgb(65, 65, 65), #5555);
+    border: 5px solid rgb(85, 85, 85);
+    color: rgb(85, 85, 85);
+}
+
+.ghost {
+    background: linear-gradient(to bottom, rgb(54, 54, 54), rgb(133, 29, 173));
+    border: 5px solid purple;
+    color: purple;
+}
+
+.dragon {
+    background: linear-gradient(to bottom, darkblue, purple);
+    border: 5px solid darkblue;
+    color: darkblue;
+}
+
+.dark {
+    background: linear-gradient(to bottom, black, darkgray);
+    border: 5px solid black;
+    color: black;
+}
+
+.steel {
+    background: linear-gradient(to bottom, gray, silver);
+    border: 5px solid gray;
+    color: gray;
+}
+
+.fairy {
+    background: linear-gradient(to bottom, rgb(255, 136, 154), pink);
+    border: 5px solid pink;
+    color: pink;
+}
+
+
+/* ---- pokecard ---- */
+
+.pokecard {
+    position: relative;
+    overflow: hidden;
+    background: rgb(255, 255, 255);
+    width: 250px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 0 10px white;
+}
+
+.pokecard__back {
+    width: 100%;
+    height: 100px;
+    border: 0;
+}
+
+.pokecard__img {
+    width: 65%;
+    position: absolute;
+}
+
+.pokecard__name {
+    padding-top: 50px;
+    text-transform: uppercase;
+    color: black;
+}
+
+.pokecard__span{
+    color: black;
+}
+.pokecard__types {
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 15px 0 5px;
+    display: flex;
+    text-transform: capitalize;
+}
+
+.slot__1, .slot__2{
+    border: none;
+    border-radius: 30px;
+    padding: 3px;
+    font-weight: 900;
+    color: black;
+    margin: 0;
+}
+.pokecard__hr {
+    width: 90%;
+    margin: 5px 0;
+    border-color: rgb(226, 226, 226);
+}
+
+.pokecard__stats {
+    padding-bottom: 10px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 10px 40px;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.pokecard__stats1{
+    font-size: 15px;
+    color: black;
+    text-shadow: 4px 1px 5px;
+}
+.pokecard__stats2{
+    background:none;
+    border: none;
+}
+.pokecard__stats li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

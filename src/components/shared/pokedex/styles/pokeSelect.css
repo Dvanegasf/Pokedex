@@ -1,0 +1,14 @@
+.pokeselect{
+    padding: 10px;
+    width: 40%;
+    height: 50%;
+    border: none;
+    box-shadow: 0 0 10px white;
+    color: rgb(137, 137, 137);
+}
+option {
+    font-size: 14px;
+    color: rgb(137, 137, 137);
+    background-color: #fff;
+    text-transform: capitalize;
+}
