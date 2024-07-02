@@ -34,8 +34,6 @@ const Pokedex = () => {
   const cbFilter = (poke) => {
     return poke.name.includes(inputValue);
   }
-  console.log(pokemons)
-
   return (
     <div className='pokedex'>
       <h3 className='pokedex__wave'><span>Welcome {trainer}, </span>here you can find information about any Pokémon.</h3>

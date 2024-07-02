@@ -13,9 +13,6 @@ const PokeInfo = () => {
      const url =`https://pokeapi.co/api/v2/pokemon/${id}`;
     getPokemon(url);
   }, []);
-  
-  console.log(pokemon);
-
   return (
     <section className='pokeinfo'>
       <div className='pokeinfo__cont'>       

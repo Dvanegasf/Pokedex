@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { setTrainer } from '../store/slices/trainer.slice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import './styles/homePage.css'
+import './styles/homepage.css'
 
 const HomePage = () => {
 
