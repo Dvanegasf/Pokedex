@@ -19,7 +19,7 @@ const PokeInfo = () => {
         <figure className='pokeinfo__img'>
          <div className={`pokeinfo__back ${pokemon?.types[0].type.name}`}></div>
             <img className='pokeinfo__normal'src={pokemon?.sprites.other['official-artwork'].front_default} alt="pokemon image" />
-            <img loading="lazy" className='pokeinfo__shiny' src={pokemon?.sprites.other['official-artwork'].front_shiny} alt="pokemon shiny image" />
+            <img loading="lazy" className='pokeinfo__shiny' src={pokemon?.sprites.other['official-artwork'].front_shiny} alt="pokemon shiny image" /> <p>✨</p>
           </figure>
         <div className='pokeinfo__info'>
             <h3 className={`pokeinfo__num ${pokemon?.types[0].type.name}`}>#{pokemon?.id}</h3>

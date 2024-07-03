@@ -41,11 +41,17 @@
     width: 15%;
     position: relative;
     transition: width, 1s
-
 }
 .pokeinfo__shiny:hover{
     width: 35%;
     transition: width, 1s
+}
+.pokeinfo__img:first-child p{
+    right: 0;
+    margin-bottom: 10%;
+    font-size: 15px;
+    position: relative;
+    z-index: 10000;
 }
 .pokeinfo__info{
     justify-content: center;

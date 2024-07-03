@@ -18,7 +18,7 @@ const Pokedex = () => {
     if (typeFilter) {
       getType(typeFilter)
     } else {
-      const url = 'https://pokeapi.co/api/v2/pokemon/?limit=1302';
+      const url = 'https://pokeapi.co/api/v2/pokemon/?limit=13';
     getPokemons(url);
     }
   }, [typeFilter]);
