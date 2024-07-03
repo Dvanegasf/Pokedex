@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import '../components/shared/pokedex/styles/pokeCard.css'
 import './styles/pokeInfo.css';
 
 const PokeInfo = () => {
