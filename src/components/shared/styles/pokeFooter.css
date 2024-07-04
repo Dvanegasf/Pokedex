@@ -8,6 +8,8 @@
   .pokefooter__red {
     background: linear-gradient(to bottom, rgb(255, 138, 138), rgb(255, 0, 0));
     height: 50px;
+    box-shadow: 0 0 20px white;
+
   }
   
   .pokefooter__black {

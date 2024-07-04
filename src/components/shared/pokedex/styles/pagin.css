@@ -1,0 +1,41 @@
+.pages{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 10px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+}
+.pages:first-child span{
+    font-size: 80%;
+    font-weight: 900;
+    width: 20%;
+    justify-content: center;
+    text-align: center;
+    padding-top: 5px;
+    text-shadow: 0 0 5px white;
+    color:#D93F3f ;
+}
+.page{
+    height: 50%;
+    padding: 5px;
+    border: 0;
+    border: 3px solid gray;
+    background-color: white;
+}
+.page1{
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    visibility: hidden;
+}
+
+.page109{
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    visibility: hidden;
+}
