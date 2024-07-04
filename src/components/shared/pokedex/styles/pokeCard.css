@@ -110,6 +110,7 @@
 
 .pokecard {
     position: relative;
+    cursor: pointer;
     overflow: hidden;
     background: rgb(255, 255, 255);
     width: 250px;
@@ -119,6 +120,12 @@
     align-items: center;
     text-align: center;
     box-shadow: 0 0 10px white;
+    transition: transform .5s;
+
+}
+.pokecard:hover{
+    transform: scale(1.05);
+    transition: transform .5s;
 }
 
 .pokecard__back {
