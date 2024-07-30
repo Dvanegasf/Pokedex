@@ -1,0 +1,20 @@
+.cont__evo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+.evo__img{
+    width: 80%;
+}
+.evos{
+    justify-content: center;
+    align-items: center;
+}
+.evo__name{
+    text-transform: capitalize;
+    font-size: larger;
+}
+
+

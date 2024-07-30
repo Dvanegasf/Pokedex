@@ -18,6 +18,7 @@ const useFetch = () => {
     }))
     .catch(err => console.log(err));
   }
+  
   return [ apiData, getApi, getType ]
 }
 

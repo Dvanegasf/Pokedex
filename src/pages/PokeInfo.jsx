@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import Evolves from '../components/shared/pokedex/Evolves';
 import '../components/shared/pokedex/styles/pokeCard.css'
 import './styles/pokeInfo.css';
 
@@ -19,11 +20,14 @@ const PokeInfo = () => {
       <div className='pokeinfo__cont'>       
         <figure className='pokeinfo__img'>
          <div className={`pokeinfo__back ${pokemon?.types[0].type.name}`}></div>
+
             <img className='pokeinfo__normal'src={pokemon?.sprites.other['official-artwork'].front_default} alt="pokemon image" />
+
             <img loading="lazy" className='pokeinfo__shiny' src={pokemon?.sprites.other['official-artwork'].front_shiny} alt="pokemon shiny image" /> <p>✨</p>
           </figure>
         <div className='pokeinfo__info'>
-            <h3 className={`pokeinfo__num ${pokemon?.types[0].type.name}`}>#{pokemon?.id}</h3>
+            <h3 className={`pokeinfo__num ${pokemon?.types[0].type.name}`}>
+              #{pokemon?.id}</h3>
           <div className='pokeinfo__info1'>
             <hr className='pokeinfo__hr'/>
             <h3 className={`pokeinfo__name ${pokemon?.types[0].type.name}`}> {pokemon?.name}  </h3>
@@ -87,7 +91,7 @@ const PokeInfo = () => {
         }
         </ul>
       </div>
-      <div className='pokeinfo__cont moves1'>
+      <div className='pokeinfo__cont datos1'>
         <div className='pokeinfo__title'>
           <span>movements</span>
           <hr className='pokeinfo__hr hr2'/>
@@ -103,7 +107,7 @@ const PokeInfo = () => {
             ))
           }
       </div>
-      <div className='pokeinfo__cont moves1 last'>
+      <div className='pokeinfo__cont datos1 '>
         <div className='pokeinfo__title'>
             <span>appears games</span>
             <hr className='pokeinfo__hr hr2'/>
@@ -119,6 +123,22 @@ const PokeInfo = () => {
               </li>
               ))
             }
+        </div>
+      </div>
+      <div className='pokeinfo__cont datos1 last'>
+        <div className='pokeinfo__title'>
+            <span>Evolution</span>
+            <hr className='pokeinfo__hr hr2'/>
+            <figure>
+              <img className='pokeinfo__img2' src="../../../assets/pokebola.png" alt="pokebola image" />
+            </figure>
+        </div>
+        <div> 
+         <ul>
+          <li>
+            <Evolves/>
+          </li>
+         </ul>
         </div>
       </div>
     </section>

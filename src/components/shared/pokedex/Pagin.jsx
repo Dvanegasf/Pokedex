@@ -34,7 +34,7 @@ const Pages = ({paginate, setPaginate, total}) => {
       <button className={`page page${paginate > 20 ? paginate - 20 : total}`} onClick={() => {handleLess(20)}}>{paginate > 20 ? paginate - 20 : total}</button>
       <button className={`page page${paginate > 10 ? paginate - 10 : total}`} onClick={() => {handleLess(10)}}>{paginate > 10 ? paginate - 10 : total}</button>
       <button className={`page page${paginate > 1 ? paginate - 1 : total}`} onClick={() => {handleLess(1)}}>{paginate > 1 ? paginate - 1 : total}</button>
-      <span>{paginate} / {total}</span>
+      <span>PAGE: {paginate} / {total}</span>
       <button className={`page page${paginate < total ? paginate + 1 : 1}`} onClick={() => {handlePlus(1)}}>{paginate < total ? paginate + 1 : 1}</button>
       <button className={`page page${paginate <= total - 10 ? paginate + 10 : 1}`} onClick={() => {handlePlus(10)}}>{paginate <= total - 10 ? paginate + 10 : 1}</button>
       <button className={`page page${paginate <= total - 20 ? paginate + 20 : 1}`} onClick={() => {handlePlus(20)}}>{paginate <= total - 20 ? paginate + 20 : 1}</button>

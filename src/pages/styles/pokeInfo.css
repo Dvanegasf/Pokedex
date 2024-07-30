@@ -160,7 +160,7 @@
     background-color: orange;
     height: 100%;
 }
-.moves1{
+.datos1{
     display: flex;
     flex-wrap: wrap;
     list-style: none;
