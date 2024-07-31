@@ -55,8 +55,6 @@ const Pokedex = () => {
         <PokeSelect
         setTypeFilter={setTypeFilter}/>
       </div>
-      <div> 
-      </div>
       <div className='pokedex__container'>
       {
           pages()?.map((poke) => (

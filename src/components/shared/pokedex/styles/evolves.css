@@ -1,20 +1,19 @@
 .cont__evo{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    
+    gap: 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 
-}
 .evo__img{
-    width: 80%;
+    min-width: 100px;
+    max-width: 150px;
 }
-.evos{
-    justify-content: center;
-    align-items: center;
-}
+
 .evo__name{
     text-transform: capitalize;
-    font-size: larger;
+    font-size: medium;
+    font-weight: 800;
 }
 
 

@@ -21,9 +21,35 @@ function Evolves() {
       });
   };
   
+  /* const levelup = () => {
+    if (evolutions[0]?.evolution_chain.url) {
+      axios.get(evolutions[0].evolution_chain.url)
+        .then((value) => {
+
+          // comprobar el inicio de la cadena evolutiva
+          const firstevolutiondata = [value.data.chain.evolves_to[0]?.evolution_details[0].min_level];
+
+          // Comprobar si hay más evoluciones en el primer nivel          
+          const evolutionsData = value.data.chain.evolves_to;
+          const evolvedPokemons = evolutionsData.map(evolution => evolution.species.name) || [] ;
+          
+          // Comprobar si hay más evoluciones en el segundo nivel
+          const additionalEvolutions = evolutionsData[0]?.evolves_to.map(evolution => evolution.species.name) || [];
+
+          const allEvolutions = [...firstevolutiondata, ...evolvedPokemons, ...additionalEvolutions];
 
 
+          setlevelup(allEvolutions);
 
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }; */
+
+/*   const levelevolutionone = [value.data.chain.evolves_to[0]?.evolution_details[0].min_level]
+  const levelevolutiontwodata = [value.data.chain.evolves_to[0]?.evolves_to[0].evolution_details[0].min_level] */
 
 
   // Función para obtener la cadena de evolución
@@ -43,7 +69,10 @@ function Evolves() {
           const additionalEvolutions = evolutionsData[0]?.evolves_to.map(evolution => evolution.species.name) || [];
 
           const allEvolutions = [...firstevolutiondata, ...evolvedPokemons, ...additionalEvolutions];
+
+
           setchainevolves(allEvolutions);
+
         })
         .catch((err) => {
           console.log(err);
@@ -67,6 +96,7 @@ function Evolves() {
         });
     }
   }, [chainevolve]);
+ 
 
   // Obtener datos de evolución al montar el componente
   useEffect(() => {
@@ -79,9 +109,13 @@ function Evolves() {
       chainevolves();
     }
   }, [evolutions]);
+  const evos = `${chainevolve[0]} evolves to ${chainevolve[1]} and evolves to ${chainevolve[2]}`; 
 
   return (
     <>
+    <span>
+    {evos} 
+    </span>
       <ul className='cont__evo'> 
         {chainevolve.map((evolution, index) => (
           <li className='evos' key={index}>

@@ -203,5 +203,7 @@
     color: #454444;
 }
 .last{
+    display: flex;
     margin-bottom: 20px;
+    justify-content:space-evenly;
 }

@@ -133,12 +133,8 @@ const PokeInfo = () => {
               <img className='pokeinfo__img2' src="../../../assets/pokebola.png" alt="pokebola image" />
             </figure>
         </div>
-        <div> 
-         <ul>
-          <li>
+        <div className='pokeinfo__evos'> 
             <Evolves/>
-          </li>
-         </ul>
         </div>
       </div>
     </section>
