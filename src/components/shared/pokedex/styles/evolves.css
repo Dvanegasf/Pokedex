@@ -1,19 +1,24 @@
-.cont__evo{
+.evo__cont {
     display: flex;
-    gap: 20px;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    gap: 10%;
+    justify-content: center;
+ flex-wrap: wrap;
 }
 
-.evo__img{
-    min-width: 100px;
-    max-width: 150px;
+.evo__card{
+    display: flex;
+    flex-direction: column;
 }
 
-.evo__name{
+.evo__img {
+    min-width: 10%;
+    max-width: 100px;
+}
+
+.evo__name {
     text-transform: capitalize;
     font-size: medium;
     font-weight: 800;
 }
-
-

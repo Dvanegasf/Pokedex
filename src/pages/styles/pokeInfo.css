@@ -202,8 +202,11 @@
     padding: 6px 10px;
     color: #454444;
 }
+.pokeinfo__evos{
+    width: 100%;
+}
 .last{
     display: flex;
     margin-bottom: 20px;
-    justify-content:space-evenly;
+    justify-content:center;
 }

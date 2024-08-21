@@ -127,7 +127,7 @@ const PokeInfo = () => {
       </div>
       <div className='pokeinfo__cont datos1 last'>
         <div className='pokeinfo__title'>
-            <span>Evolution</span>
+            <span>Evolutions chain</span>
             <hr className='pokeinfo__hr hr2'/>
             <figure>
               <img className='pokeinfo__img2' src="../../../assets/pokebola.png" alt="pokebola image" />
