@@ -8,153 +8,184 @@ function Evolves() {
   const [chainevolve, setchainevolves] = useState([]);
   const [chainevolve2, setchainevolves2] = useState([]);
   const [chainevolve3, setchainevolves3] = useState([]);
-  const [pokemon, setPokemon] = useState([]); 
+  const [details2, setdetails2] = useState([]);
+  const [details3, setdetails3] = useState([]);
+  const [pokemon, setPokemon] = useState([]);
 
   const { id } = useParams();
 
-  const evolves = () => {
-    axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
-      .then((value) => {
-        setEvolucion([value.data]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  const chainevolves = () => {
-    if (evolutions[0]?.evolution_chain.url) {
-      axios.get(evolutions[0].evolution_chain.url)
-        .then((value) => {
-          const firstevolutiondata = [value.data.chain.species.name];
-          setchainevolves(firstevolutiondata);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  // Obtener la cadena de evoluciones
+  const fetchEvolutionChain = async () => {
+    try {
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
+      setEvolucion([response.data]);
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const chainevolves2 = () => {
+  // Obtener los nombres de las evoluciones y detalles
+  const fetchEvolutionData = async () => {
     if (evolutions[0]?.evolution_chain.url) {
-      axios.get(evolutions[0].evolution_chain.url)
-        .then((value) => {
-          const evolutionsData = value.data.chain.evolves_to;
-          const evolvedPokemons = evolutionsData.map(evolution => evolution.species.name);
-          setchainevolves2(evolvedPokemons);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      try {
+        const response = await axios.get(evolutions[0].evolution_chain.url);
+        const chain = response.data.chain;
+        
+        // Primer nivel de evolución
+        setchainevolves([chain.species.name]);
+        
+        // Segundo nivel de evolución
+        const secondEvolves = chain.evolves_to.map(evo => evo.species.name);
+        setchainevolves2(secondEvolves);
+        
+        // Detalles del segundo nivel
+        const details2 = chain.evolves_to.map(evo => evo.evolution_details[0] || {});
+        setdetails2(details2);
+        
+        // Tercer nivel de evolución
+        const thirdEvolves = chain.evolves_to.flatMap(evo => evo.evolves_to.map(evo2 => evo2.species.name));
+        setchainevolves3(thirdEvolves);
+        
+        // Detalles del tercer nivel
+        const details3 = chain.evolves_to.flatMap(evo => evo.evolves_to.map(evo2 => evo2.evolution_details[0] || {}));
+        setdetails3(details3);
+
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
-  const chainevolves3 = () => {
-    if (evolutions[0]?.evolution_chain.url) {
-      axios.get(evolutions[0].evolution_chain.url)
-        .then((value) => {
-          const evolutionsData = value.data.chain.evolves_to;
-          const additionalEvolutions = evolutionsData[0]?.evolves_to.map(evolution => evolution.species.name) || null;
-          setchainevolves3(additionalEvolutions);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  // Obtener imágenes de Pokémon
+  const fetchPokemonImages = async () => {
+    const allEvolutions = [...chainevolve, ...chainevolve2, ...chainevolve3];
+    const urls = allEvolutions.map(name => `https://pokeapi.co/api/v2/pokemon/${name}/`);
+
+    try {
+      const responses = await Promise.all(urls.map(url => axios.get(url)));
+      const images = responses.map(response => response.data.sprites.other['official-artwork'].front_default);
+      setPokemon(images);
+    } catch (err) {
+      console.error(err);
     }
   };
-
-  const allEvolutions = [...chainevolve, ...chainevolve2, ...chainevolve3];
 
   useEffect(() => {
-    evolves();
+    fetchEvolutionChain();
   }, [id]);
 
   useEffect(() => {
     if (evolutions.length > 0) {
-      chainevolves();
+      fetchEvolutionData();
     }
   }, [evolutions]);
 
   useEffect(() => {
-    if (chainevolve.length > 0) {
-      chainevolves2();
+    if (chainevolve.length > 0 || chainevolve2.length > 0 || chainevolve3.length > 0) {
+      fetchPokemonImages();
     }
-  }, [chainevolve]);
+  }, [chainevolve, chainevolve2, chainevolve3]);
 
-  useEffect(() => {
-    if (chainevolve2.length > 0) {
-      chainevolves3();
-    }
-  }, [chainevolve2]);
-
-  useEffect(() => {
-    if (allEvolutions.length > 0) {
-      const urls = allEvolutions.map(name => `https://pokeapi.co/api/v2/pokemon/${name}/`);
-
-      Promise.all(urls.map(url => axios.get(url)))
-        .then(responses => {
-          const images = responses.map(response => response.data.sprites.other['official-artwork'].front_default);
-          setPokemon(images);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  }, [allEvolutions]);
-
+  const renderValidDetails = (details) => {
+    if (!details || details.length === 0) return null;
+  
+    return details.map((detail, i) => {
+      
+      const validDetails = Object.entries(detail)
+        .filter(([key, value]) => value !== null && value !== false && value !== "")
+        .map(([key, value]) => (
+          <div key={key} className="detail__item">
+            <strong>{key}:</strong> {typeof value === 'object' && value.name ? value.name : value.toString()}
+          </div>
+        ));
+  
+      return (
+        <div key={i} className="detail__group">
+          {validDetails.length > 0 ? validDetails : <div>No details available.</div>}
+        </div>
+      );
+    });
+  };;
 
   return (
     <div className="evo__cont">
+      <div className='evo__1'>
       {chainevolve.map((evolution, index) => (
         <div className="evo__card" key={`first-${index}`}>
           {pokemon[index] && (
-            <>
-              <img
-                className="evo__img"
-                src={pokemon[index]}
-                alt={evolution}
-              />
-              <span className="evo__name">{evolution}</span>
-              {chainevolve2.length > 0 && <span className="arrow">→</span>}
-            </>
-          )}
-        </div>
-      ))}
-     {chainevolve2.map((evolution, index) => (
-  <div className="evo__card" key={`second-${index}`}>
-    {pokemon[chainevolve.length + index] && (
-      <>
-        <img
-          className="evo__img"
-          src={pokemon[chainevolve.length + index]}
-          alt={evolution}
-        />
-        {/* Mostrar '/' después de cada imagen */}
-        <span className="evo__name">{evolution}</span>
-        {chainevolve2.length > 1 &&  <span className="divider">/</span>}
-        {chainevolve3.length > 0 && <span className="arrow">→</span>}
-      </>
-    )}
-  </div>
-))}
-      {chainevolve3.map((evolution, index) => (
-        <div className="evo__card" key={`third-${index}`}>
-          {pokemon[chainevolve.length + chainevolve2.length + index] && (
-            <>
-              <img
-                className="evo__img"
-                src={pokemon[chainevolve.length + chainevolve2.length + index]}
-                alt={evolution}
-                />
-              <span className="evo__name">{evolution}</span>
-                {chainevolve3.length > 1 && index === 0 && <span className="divider">/</span>}
+            <>  
+              <div className='evo__cont3'>
+                <img
+                  className="evo__img"
+                  src={pokemon[index]}
+                  alt={evolution}
+                  />
+                <span className="evo__name">{evolution}</span>
+              </div>     
+                {chainevolve2.length > 0 && <span className="arrow">↓</span>}
             </>
           )}
         </div>
       ))}
     </div>
-  );
+  <div className='evo__2'>
+    {chainevolve2.map((evolution, index) => (
+    <div className="evo__card" key={`second-${index}`}>
+      {pokemon[chainevolve.length + index] && (
+        <>
+          <div className='evo__cont2'>
+            <div className='evo__cont3'>
+              <img
+                className="evo__img"
+                src={pokemon[chainevolve.length + index]}
+                alt={evolution}
+              />
+              <span className="evo__name">{evolution}</span>
+            </div>
+            <div className="details__cont">
+              {renderValidDetails([details2[index]])}
+            </div>
+          </div>
+          {index === chainevolve2.length - 1 && chainevolve3.length > 0 && (
+            <span className="arrow">↓</span>
+          )}
+        </>
+      )}
+      {chainevolve2.length > 1 && index !== chainevolve2.length - 1 && (
+        <span className="divider">or</span>
+      )}
+    </div>
   
+  ))}
+  </div>
+    <div className='evo__3'>
+        {chainevolve3.map((evolution, index) => (
+          <div className="evo__card" key={`third-${index}`}>
+            {pokemon[chainevolve.length + chainevolve2.length + index] && (
+              <>
+                <div className='evo__cont2'>
+                  <div className='evo__cont3'>
+                  <img
+                    className="evo__img"
+                    src={pokemon[chainevolve.length + chainevolve2.length + index]}
+                    alt={evolution}
+                  />
+                  <span className="evo__name">{evolution}</span>
+                  </div>
+
+                  <div className="details__cont">
+                    {renderValidDetails([details3[index]])}
+                  </div>
+                </div>
+                  {chainevolve3.length > 1 && index === 0 && <span className="divider">or</span>}
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
 }
 
 export default Evolves;
