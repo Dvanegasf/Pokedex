@@ -11,6 +11,7 @@ function Evolves() {
   const [details2, setdetails2] = useState([]);
   const [details3, setdetails3] = useState([]);
   const [pokemon, setPokemon] = useState([]);
+  const [pokemonId, setPokemonId] = useState([]);
 
   const { id } = useParams();
 
@@ -23,7 +24,6 @@ function Evolves() {
       console.error(err);
     }
   };
-
   // Obtener los nombres de las evoluciones y detalles
   const fetchEvolutionData = async () => {
     if (evolutions[0]?.evolution_chain.url) {
@@ -59,12 +59,26 @@ function Evolves() {
   // Obtener imágenes de Pokémon
   const fetchPokemonImages = async () => {
     const allEvolutions = [...chainevolve, ...chainevolve2, ...chainevolve3];
-    const urls = allEvolutions.map(name => `https://pokeapi.co/api/v2/pokemon/${name}/`);
-
+    let urls = allEvolutions.map(name => `https://pokeapi.co/api/v2/pokemon/${name}/`);
+    
     try {
       const responses = await Promise.all(urls.map(url => axios.get(url)));
       const images = responses.map(response => response.data.sprites.other['official-artwork'].front_default);
       setPokemon(images);
+      console.log()
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const fetchPokemonId = async () => {
+    const allEvolutions = [...chainevolve, ...chainevolve2, ...chainevolve3];
+    let urls = allEvolutions.map(name => `https://pokeapi.co/api/v2/pokemon/${name}/`);
+    
+    try {
+      const responses = await Promise.all(urls.map(url => axios.get(url)));
+      const id = responses.map(response => response.data);
+      setPokemonId(id);
+      console.log()
     } catch (err) {
       console.error(err);
     }
@@ -85,19 +99,69 @@ function Evolves() {
       fetchPokemonImages();
     }
   }, [chainevolve, chainevolve2, chainevolve3]);
+  useEffect(() => {
+    if (chainevolve.length > 0 || chainevolve2.length > 0 || chainevolve3.length > 0) {
+      fetchPokemonId();
+    }
+  }, [chainevolve, chainevolve2, chainevolve3]);
 
   const renderValidDetails = (details) => {
     if (!details || details.length === 0) return null;
   
-    return details.map((detail, i) => {
+    const keyMappings = {
+      gender: 'gender',
+      held_item : 'held item',
+      known_move : 'known move',
+      known_move_type: 'known move type',
+      min_affection : 'req affection',
+      min_beauty : 'req beauty',
+      min_happiness : 'req happiness',
+      min_level : 'req level',
+      needs_overworld_rain : 'needs overworld rain',
+      party_species : 'party species',
+      party_type : 'party type',
+      relative_physical_stats : 'relative physical stats',
+      time_of_day : 'time of day',
+      trade_species : 'trade species',
+      turn_upside_down : 'turn upside down',
+      trigger : 'method',
       
+      
+      // Añade más mapeos de claves aquí según sea necesario
+    };
+  
+    const valueMappings = {
+      gender: {
+        1: 'female',
+        2: 'macho',
+        0: 'unknown',
+      },
+      // Añade más mapeos de valores aquí según sea necesario
+    };
+    
+    return details.map((detail, i) => {
       const validDetails = Object.entries(detail)
-        .filter(([key, value]) => value !== null && value !== false && value !== "")
-        .map(([key, value]) => (
-          <div key={key} className="detail__item">
-            <strong>{key}:</strong> {typeof value === 'object' && value.name ? value.name : value.toString()}
-          </div>
-        ));
+      .filter(([key, value]) => value !== null && value !== false && value !== "")
+      .map(([key, value]) => {
+        const displayKey = keyMappings[key] || key; // Cambia el nombre de la clave si existe un mapeo
+        let displayValue = value;
+        
+          if (valueMappings[key]) {
+            displayValue = valueMappings[key][value] || value; // Cambia el valor si existe un mapeo para esta clave
+          }
+          // Asegúrate de que displayValue sea una cadena antes de aplicar el reemplazo
+          if (typeof displayValue === 'string') {
+            displayValue = displayValue.replace(/[-/_]/g, ' ');
+            
+          } else if (typeof displayValue === 'object' && displayValue.name) {
+            displayValue.name = displayValue.name.replace(/[-/_]/g, ' ');
+          }  
+          return (
+            <div key={key} className="">
+              <strong className="detail__item">{displayKey}:</strong> {typeof displayValue === 'object' && displayValue.name ? displayValue.name : displayValue.toString()}
+            </div>
+          );
+        });
   
       return (
         <div key={i} className="detail__group">
@@ -105,7 +169,7 @@ function Evolves() {
         </div>
       );
     });
-  };;
+  };
 
   return (
     <div className="evo__cont">
@@ -120,7 +184,7 @@ function Evolves() {
                   src={pokemon[index]}
                   alt={evolution}
                   />
-                <span className="evo__name">{evolution}</span>
+                <span className="evo__name"># {pokemonId[index].id} {evolution}</span>
               </div>     
                 {chainevolve2.length > 0 && <span className="arrow">↓</span>}
             </>
@@ -140,7 +204,7 @@ function Evolves() {
                 src={pokemon[chainevolve.length + index]}
                 alt={evolution}
               />
-              <span className="evo__name">{evolution}</span>
+              <span className="evo__name"># {pokemonId[index + 1].id} {evolution}</span>
             </div>
             <div className="details__cont">
               {renderValidDetails([details2[index]])}
@@ -170,7 +234,7 @@ function Evolves() {
                     src={pokemon[chainevolve.length + chainevolve2.length + index]}
                     alt={evolution}
                   />
-                  <span className="evo__name">{evolution}</span>
+                  <span className="evo__name"># {pokemonId[index + 2].id} {evolution}</span>
                   </div>
 
                   <div className="details__cont">
