@@ -189,11 +189,11 @@
     padding: 5px 6px;
     color: #454444;
 }
+
 .pokeinfo__games1{
     display: flex;
     flex-wrap: wrap;
     gap: 3px;
-    
 }
 .pokeinfo__games{
     text-transform: capitalize;
@@ -204,6 +204,8 @@
 }
 .pokeinfo__evos{
     width: 100%;
+    justify-self: center;
+    align-self: center;
 }
 .last{
     display: flex;

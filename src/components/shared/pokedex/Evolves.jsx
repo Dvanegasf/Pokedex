@@ -178,13 +178,16 @@ function Evolves() {
         <div className="evo__card" key={`first-${index}`}>
           {pokemon[index] && (
             <>  
-              <div className='evo__cont3'>
+              <div className={`evo__cont4 ${pokemonId[index + 2]?.types[0].type.name}`}>
                 <img
                   className="evo__img"
                   src={pokemon[index]}
                   alt={evolution}
                   />
-                <span className="evo__name"># {pokemonId[index].id} {evolution}</span>
+                <div className='evo__name'>
+                    <span>#{pokemonId[index].id} </span>
+                    <span>{evolution}</span>
+                  </div>
               </div>     
                 {chainevolve2.length > 0 && <span className="arrow">↓</span>}
             </>
@@ -197,14 +200,17 @@ function Evolves() {
     <div className="evo__card" key={`second-${index}`}>
       {pokemon[chainevolve.length + index] && (
         <>
-          <div className='evo__cont2'>
+          <div className={`evo__cont2 ${pokemonId[index + 1]?.types[0].type.name}`}>
             <div className='evo__cont3'>
               <img
                 className="evo__img"
                 src={pokemon[chainevolve.length + index]}
                 alt={evolution}
               />
-              <span className="evo__name"># {pokemonId[index + 1].id} {evolution}</span>
+              <div className='evo__name'>
+                    <span>#{pokemonId[index + 1].id} </span>
+                    <span>{evolution}</span>
+                  </div>
             </div>
             <div className="details__cont">
               {renderValidDetails([details2[index]])}
@@ -224,17 +230,20 @@ function Evolves() {
   </div>
     <div className='evo__3'>
         {chainevolve3.map((evolution, index) => (
-          <div className="evo__card" key={`third-${index}`}>
+          <div className={`evo__card ${pokemonId[index + 2]?.types[0].type.name}`} key={`third-${index}`}>
             {pokemon[chainevolve.length + chainevolve2.length + index] && (
               <>
                 <div className='evo__cont2'>
-                  <div className='evo__cont3'>
+                  <div className='evo__cont3 '>
                   <img
                     className="evo__img"
                     src={pokemon[chainevolve.length + chainevolve2.length + index]}
                     alt={evolution}
                   />
-                  <span className="evo__name"># {pokemonId[index + 2].id} {evolution}</span>
+                  <div className='evo__name'>
+                    <span>#{pokemonId[index + 2].id} </span>
+                    <span>{evolution}</span>
+                  </div>
                   </div>
 
                   <div className="details__cont">

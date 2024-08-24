@@ -9,46 +9,66 @@
 .evo__img {
     min-width: 10%;
     max-width: 100px;
+    right: 0;
 }
+
 .arrow, .divider{
     padding: 5px 0;
     font-family: 700;
 }
+
 .evo__name, .detail__item{
     text-transform: capitalize;
     font-size: medium;
     font-weight: 800;
+    color: black;
 }
+.evo__name{
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    text-align: center; 
+}
+
 .detail__group{
     text-transform: capitalize;
     text-align: left;
     padding-bottom: 2px;
-}
-.evo__1, .evo__2, .evo__3{
-    width: 100%;
-    
+    color: black;
 }
 
-.evo__cont2{
+.evo__card{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    justify-content: center; 
+}
+
+.evo__1, .evo__2, .evo__3{
+    width: 100%;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.evo__cont2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;    
 }
-.evo__cont3,.details__cont{
+
+.evo__cont3, .evo__cont4, .details__cont {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
-    width: 50%;    
+    width: 100%;
+    gap: 10px;
 }
 
-
-.evo__card{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+.details__cont {
+    right: 0;
 }
