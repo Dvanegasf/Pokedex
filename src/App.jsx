@@ -3,8 +3,8 @@ import './App.css'
 import HomePage from './pages/HomePage'
 import PokeInfo from './pages/PokeInfo'
 import Pokedex from './pages/Pokedex'
-import ProtectedRoutes from './pages/ProtectedRoutes'
 import PokeFooter from './components/shared/PokeFooter'
+import Evolves from './components/shared/pokedex/Evolves'
 
 function App() {
   
@@ -12,9 +12,10 @@ function App() {
     <div>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
-        <Route element={<ProtectedRoutes/>}>
+        <Route>
           <Route path='pokedex' element={<Pokedex/>}/>
           <Route path='pokedex/:id' element={<PokeInfo/>}/>
+          <Route path='pokedex/:pokemonId' element={<Evolves/>}/>
         </Route>
       </Routes>
       <PokeFooter/>

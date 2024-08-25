@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/evolves.css';
+import './styles/pokeCard.css';
+
 
 function Evolves() {
+  const { pokemonId: paramPokemonId } = useParams();
   const [evolutions, setEvolucion] = useState([]);
   const [chainevolve, setchainevolves] = useState([]);
   const [chainevolve2, setchainevolves2] = useState([]);
@@ -11,9 +14,14 @@ function Evolves() {
   const [details2, setdetails2] = useState([]);
   const [details3, setdetails3] = useState([]);
   const [pokemon, setPokemon] = useState([]);
-  const [pokemonId, setPokemonId] = useState([]);
-
+  const [pokemonIdState, setPokemonIdState] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleClick = (pokemonId) => {
+    navigate(`/pokedex/${pokemonId}`,{ state
+      : true });
+  }
 
   // Obtener la cadena de evoluciones
   const fetchEvolutionChain = async () => {
@@ -33,7 +41,7 @@ function Evolves() {
         
         // Primer nivel de evolución
         setchainevolves([chain.species.name]);
-        
+   
         // Segundo nivel de evolución
         const secondEvolves = chain.evolves_to.map(evo => evo.species.name);
         setchainevolves2(secondEvolves);
@@ -70,14 +78,15 @@ function Evolves() {
       console.error(err);
     }
   };
-  const fetchPokemonId = async () => {
+ 
+  const fetchPokemonIdState = async () => {
     const allEvolutions = [...chainevolve, ...chainevolve2, ...chainevolve3];
     let urls = allEvolutions.map(name => `https://pokeapi.co/api/v2/pokemon/${name}/`);
     
     try {
       const responses = await Promise.all(urls.map(url => axios.get(url)));
       const id = responses.map(response => response.data);
-      setPokemonId(id);
+      setPokemonIdState(id);
       console.log()
     } catch (err) {
       console.error(err);
@@ -101,7 +110,7 @@ function Evolves() {
   }, [chainevolve, chainevolve2, chainevolve3]);
   useEffect(() => {
     if (chainevolve.length > 0 || chainevolve2.length > 0 || chainevolve3.length > 0) {
-      fetchPokemonId();
+      fetchPokemonIdState();
     }
   }, [chainevolve, chainevolve2, chainevolve3]);
 
@@ -172,91 +181,92 @@ function Evolves() {
   };
 
   return (
-    <div className="evo__cont">
-      <div className='evo__1'>
-      {chainevolve.map((evolution, index) => (
-        <div className="evo__card" key={`first-${index}`}>
-          {pokemon[index] && (
-            <>  
-              <div className={`evo__cont4 ${pokemonId[index + 2]?.types[0].type.name}`}>
-                <img
-                  className="evo__img"
-                  src={pokemon[index]}
-                  alt={evolution}
-                  />
-                <div className='evo__name'>
-                    <span>#{pokemonId[index].id} </span>
-                    <span>{evolution}</span>
-                  </div>
-              </div>     
-                {chainevolve2.length > 0 && <span className="arrow">↓</span>}
-            </>
-          )}
-        </div>
-      ))}
-    </div>
-  <div className='evo__2'>
-    {chainevolve2.map((evolution, index) => (
-    <div className="evo__card" key={`second-${index}`}>
-      {pokemon[chainevolve.length + index] && (
-        <>
-          <div className={`evo__cont2 ${pokemonId[index + 1]?.types[0].type.name}`}>
-            <div className='evo__cont3'>
-              <img
-                className="evo__img"
-                src={pokemon[chainevolve.length + index]}
-                alt={evolution}
-              />
-              <div className='evo__name'>
-                    <span>#{pokemonId[index + 1].id} </span>
-                    <span>{evolution}</span>
-                  </div>
-            </div>
-            <div className="details__cont">
-              {renderValidDetails([details2[index]])}
-            </div>
-          </div>
-          {index === chainevolve2.length - 1 && chainevolve3.length > 0 && (
-            <span className="arrow">↓</span>
-          )}
-        </>
-      )}
-      {chainevolve2.length > 1 && index !== chainevolve2.length - 1 && (
-        <span className="divider">or</span>
-      )}
-    </div>
-  
-  ))}
-  </div>
-    <div className='evo__3'>
-        {chainevolve3.map((evolution, index) => (
-          <div className={`evo__card ${pokemonId[index + 2]?.types[0].type.name}`} key={`third-${index}`}>
-            {pokemon[chainevolve.length + chainevolve2.length + index] && (
-              <>
-                <div className='evo__cont2'>
-                  <div className='evo__cont3 '>
+      <div className="evo__cont">
+        <div className='evo__1'>
+        {chainevolve.map((evolution, index) => (
+          <div className={`evo__card ${pokemonIdState[index]?.types[0].type.name}`} key={`first-${index}`}>
+            {pokemon[index] && (
+              <>  
+                <div className='evo__cont4'  onClick={() => handleClick(pokemonIdState[index].id)}>
                   <img
                     className="evo__img"
-                    src={pokemon[chainevolve.length + chainevolve2.length + index]}
+                    src={pokemon[index]}
                     alt={evolution}
-                  />
+                    />
                   <div className='evo__name'>
-                    <span>#{pokemonId[index + 2].id} </span>
-                    <span>{evolution}</span>
-                  </div>
-                  </div>
-
-                  <div className="details__cont">
-                    {renderValidDetails([details3[index]])}
-                  </div>
-                </div>
-                  {chainevolve3.length > 1 && index === 0 && <span className="divider">or</span>}
+                      <span>#{pokemonIdState[index].id} </span>
+                      <span>{evolution}</span>
+                    </div>
+                {chainevolve2.length > 0 && <span className="arrow1">↓</span>}
+                </div>     
               </>
             )}
           </div>
         ))}
       </div>
+    <div className='evo__2'>
+      {chainevolve2.map((evolution, index) => (
+      <div className="evo__card" key={`second-${index}`}>
+        {pokemon[chainevolve.length + index] && (
+          <>
+            <div className={`evo__cont2 ${pokemonIdState[index + 1]?.types[0].type.name}`} onClick={() => handleClick(pokemonIdState[chainevolve.length + index].id)}>
+              <div className='evo__cont3'>
+                <img
+                  className="evo__img"
+                  src={pokemon[chainevolve.length + index]}
+                  alt={evolution}
+                />
+                <div className='evo__name'>
+                      <span>#{pokemonIdState[index + 1].id} </span>
+                      <span>{evolution}</span>
+                    </div>
+              </div>
+              <div className="details__cont">
+                {renderValidDetails([details2[index]])}
+              </div>
+            </div>
+            
+            {index === chainevolve2.length - 1 && chainevolve3.length > 0 && (
+              <span className="arrow2">↓</span>
+            )}
+          </>
+        )}
+        {chainevolve2.length > 1 && index !== chainevolve2.length - 1 && (
+          <span className="divider">or</span>
+        )}
+      </div>
+    
+    ))}
     </div>
+      <div className='evo__3'>
+          {chainevolve3.map((evolution, index) => (
+            <div className="evo__card" key={`third-${index}`} onClick={() => handleClick(pokemonIdState[chainevolve.length + chainevolve2.length + index].id)}>
+              {pokemon[chainevolve.length + chainevolve2.length + index] && (
+                <>
+                  <div className={`evo__cont2 ${pokemonIdState[index + 1]?.types[0].type.name}`}>
+                    <div className='evo__cont3 '>
+                    <img
+                      className="evo__img"
+                      src={pokemon[chainevolve.length + chainevolve2.length + index]}
+                      alt={evolution}
+                    />
+                    <div className='evo__name'>
+                      <span>#{pokemonIdState[index + 2].id} </span>
+                      <span>{evolution}</span>
+                    </div>
+                    </div>
+
+                    <div className="details__cont">
+                      {renderValidDetails([details3[index]])}
+                    </div>
+                  </div>
+                </>
+              )}
+          {chainevolve3.length > 1 && index === 0 && <span className="divider">or</span>}
+            </div>
+          ))}
+        </div>
+      </div>
   );
 
 }
