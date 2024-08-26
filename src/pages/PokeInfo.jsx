@@ -1,20 +1,42 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import Evolves from '../components/shared/pokedex/Evolves';
 import '../components/shared/pokedex/styles/pokeCard.css'
 import './styles/pokeInfo.css';
+import axios from 'axios';
 
 const PokeInfo = () => {
 
   const [pokemon, getPokemon] = useFetch();
-
+  const [movesData, setMovesData] = useState([]);
   const { id } = useParams();
+
+
+  useEffect(() => {
+    if (pokemon?.moves) {
+      const urls = pokemon.moves.map(move => move.move.url); 
+      Promise.all(urls.map(url => axios.get(url)))
+        .then(responses => {
+          const moves = responses.map(res => res.data);
+          setMovesData(moves);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }
+    }, [pokemon]);
+    
+    console.log(movesData[0]); 
+    
 
   useEffect(() => {
      const url =`https://pokeapi.co/api/v2/pokemon/${id}`;
     getPokemon(url);
   }, []);
+
+
+
   return (
     <section className='pokeinfo'>
       <div className='pokeinfo__cont'>       
@@ -100,8 +122,8 @@ const PokeInfo = () => {
           </figure>
         </div>
           {
-            pokemon?.moves.map(move => (
-            <li className='pokeinfo__moves' key={move.move.url}>
+            pokemon?.moves.map(( move, index )=> (
+            <li className={`pokeinfo__moves ${movesData[index]?.type.name}`} key={move.move.url}>
               {move.move.name} 
             </li>
             ))

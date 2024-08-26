@@ -15,7 +15,7 @@ function App() {
         <Route>
           <Route path='pokedex' element={<Pokedex/>}/>
           <Route path='pokedex/:id' element={<PokeInfo/>}/>
-          <Route path='pokedex/:pokemonId' element={<Evolves/>}/>
+          <Route path='pokedex/evolves/:id' element={<Evolves />} />
         </Route>
       </Routes>
       <PokeFooter/>

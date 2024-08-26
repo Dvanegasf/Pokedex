@@ -14,7 +14,7 @@ const PokeCard = ({url}) => {
     }, []);
 
     const handleClick = () => {
-      navigate(`/pokedex/${pokemon.id}`);
+      navigate(`/pokedex/${pokemon.name}`);
     }
 
 
