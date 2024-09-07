@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage'
 import PokeInfo from './pages/PokeInfo'
 import Pokedex from './pages/Pokedex'
 import PokeFooter from './components/shared/PokeFooter'
-import Evolves from './components/shared/pokedex/Evolves'
 
 function App() {
   
@@ -15,7 +14,6 @@ function App() {
         <Route>
           <Route path='pokedex' element={<Pokedex/>}/>
           <Route path='pokedex/:id' element={<PokeInfo/>}/>
-          <Route path='pokedex/evolves/:id' element={<Evolves />} />
         </Route>
       </Routes>
       <PokeFooter/>
