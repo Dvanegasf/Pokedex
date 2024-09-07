@@ -1,12 +1,19 @@
 import React from 'react';
 import './styles/pokeHeader.css';
+import { useNavigate } from 'react-router-dom';
 
-const PokeHeade = () => {
+const PokeHeader = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/pokedex`);
+  }
+
+
   return (
     <div className='pokeheader'>
         <div className='pokeheader__red'>
           <figure className='pokeheader__img'>
-            <img src="../../../assets/pokedex.png" alt="pokedex image" />
+            <img onClick={handleClick} src="../../../assets/pokedex.png" alt="pokedex image" />
           </figure>
         </div>
         <div className='pokeheader__black'>
@@ -19,4 +26,4 @@ const PokeHeade = () => {
   )
 }
 
-export default PokeHeade;
+export default PokeHeader;

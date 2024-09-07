@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import useFetch from '../../../hooks/useFetch';
 import './styles/evolves.css';
 import './styles/pokeCard.css';
 

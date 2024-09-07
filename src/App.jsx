@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import PokeInfo from './pages/PokeInfo'
 import Pokedex from './pages/Pokedex'
 import PokeFooter from './components/shared/PokeFooter'
+import PokeHeader from './components/shared/PokeHeader'
 
 function App() {
   

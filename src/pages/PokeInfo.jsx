@@ -5,6 +5,7 @@ import Evolves from '../components/shared/pokedex/Evolves';
 import '../components/shared/pokedex/styles/pokeCard.css'
 import './styles/pokeInfo.css';
 import axios from 'axios';
+import PokeHeader from '../components/shared/PokeHeader';
 
 const PokeInfo = () => {
 
@@ -39,6 +40,7 @@ const PokeInfo = () => {
 
   return (
     <section className='pokeinfo'>
+      <PokeHeader/>
       <div className='pokeinfo__cont'>       
         <figure className='pokeinfo__img'>
          <div className={`pokeinfo__back ${pokemon?.types[0].type.name}`}></div>

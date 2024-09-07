@@ -5,6 +5,7 @@ import PokeCard from '../components/shared/pokedex/PokeCard';
 import PokeSelect from '../components/shared/pokedex/PokeSelect';
 import './styles/pokedex.css';
 import Pagin from '../components/shared/pokedex/Pagin'
+import PokeHeader from '../components/shared/PokeHeader';
 
 const Pokedex = () => {
 
@@ -46,6 +47,7 @@ const Pokedex = () => {
 
   return (
     <div className='pokedex'>
+      <PokeHeader/>
       <h3 className='pokedex__wave'><span>Welcome {trainer}, </span>here you can find information about any Pokémon.</h3>
       <div className='pokedex__filters1'>
         <form className='pokedex__filters' onSubmit={handleSubmit}>

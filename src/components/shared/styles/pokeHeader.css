@@ -15,6 +15,9 @@
     left: 10px;
     bottom: 0px;
 }
+.pokeheader__img:hover{
+    cursor: pointer;
+}
 
 .pokeheader__black {
     position: relative;
